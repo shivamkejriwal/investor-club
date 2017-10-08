@@ -1,0 +1,20 @@
+{
+  "name": "investor-club",
+  "description": "Web app for assisting investors",
+  "main": "",
+  "authors": [
+    "Shivam Kejriwal <shivamkejriwal@gmail.com>"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/shivamkejriwal/investor-club",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ]
+}

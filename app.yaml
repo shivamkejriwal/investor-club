@@ -17,5 +17,6 @@ env: flex
 skip_files:
 - ^src$
 - ^node_modules$
-- ^environments$
+- ^bower_components$
+- ^config$
 # [END runtime]
