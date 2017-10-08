@@ -6,6 +6,8 @@ import { PageHeaderComponent } from './page-components/page-header/page-header.c
 import { PageBodyComponent } from './page-components/page-body/page-body.component';
 import { PageFooterComponent } from './page-components/page-footer/page-footer.component';
 import { NavbarComponent } from './ui-components/navbar/navbar.component';
+import { SidebarComponent } from './ui-components/sidebar/sidebar.component';
+import { SidebarItemTickerComponent } from './ui-components/sidebar/sidebar-item-ticker/sidebar-item-ticker.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { NavbarComponent } from './ui-components/navbar/navbar.component';
     PageHeaderComponent,
     PageBodyComponent,
     PageFooterComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidebarComponent,
+    SidebarItemTickerComponent
   ],
   imports: [
     BrowserModule

@@ -1,16 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-page-body',
   templateUrl: './page-body.component.html',
   styleUrls: ['./page-body.component.css']
 })
 export class PageBodyComponent implements OnInit {
+    sidebarIsOpen: boolean = false;
 
-  constructor() { }
+    constructor() {
+        // this.sidebarIsOpen = false;
+    }
 
-  ngOnInit() {
+    ngOnInit() {
       console.log('PageBodyComponent');
-  }
+    }
 
+    toggleSidebar() {
+        this.sidebarIsOpen = !this.sidebarIsOpen;
+        console.log(`toggleSidebar: ${this.sidebarIsOpen}`);
+    }
 }

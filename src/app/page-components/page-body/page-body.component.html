@@ -1,5 +1,11 @@
-<div class="container-fluid pagebody">
-    <div class="motto">
-        Think. Learn. Play.
+<div class="pageBody">
+    <app-sidebar [sidebarIsOpen]='sidebarIsOpen'></app-sidebar>
+    <div class="page-content-wrapper"  [ngClass]="{'sidebarIsOpen': sidebarIsOpen}">
+        <div class="container-fluid">
+            <div class="motto">
+                Think. Learn. Play.
+                <a (click)="toggleSidebar()" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+            </div>
+        </div>
     </div>
 </div>

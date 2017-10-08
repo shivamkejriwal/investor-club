@@ -1,0 +1,15 @@
+.ticker-item {
+    display: inline-flex;
+    width: 100%;
+    border: 1px solid #668b99;
+    padding: 10px 10px;
+}
+
+.ticker-item .name {
+    float: left;
+}
+
+.ticker-item .value {
+    float: right;
+    margin-left: auto;
+}

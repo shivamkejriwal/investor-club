@@ -5,16 +5,16 @@
   "repository": "https://github.com/GoogleCloudPlatform/nodejs-getting-started",
   "private": true,
   "scripts": {
-    "ng": "ng",
     "start": "node app.js",
-    "serve": "ng serve",
-    "lint": "ng lint",
-    "build": "ng build",
     "e2e": "rm -rf node_modules/ &&  samples test build --deploy --timeout 20m --builderProject $GCLOUD_PROJECT",
     "test": "samples test app",
     "cover": "nyc --cache npm test; nyc report --reporter=html",
+    "ng": "ng",
+    "serve": "ng serve",
+    "lint": "ng lint",
+    "build": "ng build",
     "nuke": "rm -rf node_modules/; rm -rf bower_components/; rm -rf dist/; npm install; bower install; ng build;",
-    "deploy": "ng build --env=prod; gcloud app deploy"
+    "deploy": "ng build --env=prod; gcloud app deploy;"
   },
   "author": "Shivam Kejriwal",
   "contributors": [

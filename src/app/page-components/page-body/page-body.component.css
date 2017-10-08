@@ -1,7 +1,22 @@
-.pagebody {
+.pageBody {
     background-color: #f1f4f5;
+    height: 100%;
+    width: 100%;
+    margin-top: -20px;
 }
 
 .motto {
+    float: left;
+}
 
+.page-content-wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.sidebarIsOpen {
+    padding-left: 130px;
 }
