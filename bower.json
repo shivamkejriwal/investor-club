@@ -16,5 +16,6 @@
     "public/components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {}
 }

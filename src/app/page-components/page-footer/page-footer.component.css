@@ -1,0 +1,12 @@
+.pageFooter {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.footerContent {
+    float: right;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
