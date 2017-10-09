@@ -16,6 +16,7 @@
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
+var router = express.Router();
 
 const publicFolder = 'dist';
 const app = express();
@@ -23,16 +24,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, publicFolder)));
 
-app.use('*', function (req, res) {
+// Connect Middleware
+app.use('/api/stocks', require('./apis').stocks);
+
+
+// Serve Index File
+app.use('/', function (req, res) {
   return res.sendFile(path.join(__dirname, `${publicFolder}/index.html`));
 });
 
-// [START hello_world]
-// Say hello!
-// app.get('/', (req, res) => {
-//   res.status(200).send('Hello, world!');
-// });
-// [END hello_world]
 
 if (module === require.main) {
   // [START server]
