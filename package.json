@@ -14,7 +14,8 @@
     "lint": "ng lint",
     "build": "ng build",
     "nuke": "rm -rf node_modules/; rm -rf bower_components/; rm -rf dist/; npm install; bower install; ng build;",
-    "deploy": "ng build --env=prod; gcloud app deploy;"
+    "deploy": "ng build --env=prod; gcloud app deploy;",
+    "login": "gcloud auth application-default login"
   },
   "author": "Shivam Kejriwal",
   "contributors": [
@@ -63,6 +64,7 @@
     "express": "~4.15.2",
     "font-awesome": "^4.7.0",
     "gcloud": "^0.37.2",
+    "@google-cloud/datastore": "1.1.0",
     "jquery": "^3.2.1",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"

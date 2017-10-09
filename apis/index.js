@@ -1,5 +1,5 @@
-var stocksCrud = require('./stocks/crud');
+var stocksApi = require('./stocks/api');
 
 module.exports = {
-    stocks : stocksCrud
+    stocks : stocksApi
 };

@@ -1,6 +1,6 @@
 # For Security
 config.json
-
+config.js
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
