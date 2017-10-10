@@ -58,15 +58,17 @@
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/platform-server": "^4.4.4",
     "@angular/router": "^4.4.4",
+    "@google-cloud/datastore": "1.1.0",
     "body-parser": "1.16.1",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "express": "~4.15.2",
     "font-awesome": "^4.7.0",
     "gcloud": "^0.37.2",
-    "@google-cloud/datastore": "1.1.0",
     "jquery": "^3.2.1",
+    "request": "^2.83.0",
     "rxjs": "^5.4.2",
+    "underscore": "^1.8.3",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
