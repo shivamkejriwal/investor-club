@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const Datastore = require('@google-cloud/datastore');
 const datastore = Datastore();
 
@@ -63,10 +64,43 @@ let getList = (count) => {
         });
 }
 
+
+/*
+ * Takes a list of data in the format
+ * [{ticker, date, price}, {ticker, date, price}, ...]
+ */
+let createBatch = (dataList) => {
+    const entities = _.map(dataList, (stock) => {
+        const id = stock.ticker;
+        const entity = getEntity(id, stock);
+        return entity;
+    });
+    return new Promise((resolve, reject) => {
+        let count = 0;
+        let requestChain = []
+        while(entities.length) {
+            const batch = entities.splice(0,500);
+            requestChain.push(datastore.save(batch));
+        }
+        Promise.all(requestChain)
+            .then((result) => {
+                console.log('createBatch-Success');
+                resolve(true);
+            })
+            .catch((err) => {
+                console.log('createBatch-Error', err);
+                reject(err);
+            });
+
+    });
+}
+
+
 module.exports = {
     create : createStock,
     read: readStock,
     update: updateStock,
     delete: deleteStock,
-    list: getList
+    list: getList,
+    createBatch
 };

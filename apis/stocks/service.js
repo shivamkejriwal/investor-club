@@ -1,12 +1,16 @@
+const moment = require('moment');
 const _ = require('underscore');
+const crud = require('./crud');
 
 const config = require('../../config.js');
 const util = require('../utils');
+
 const apiKey = config.quandl.api_key;
+
 
 const url = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json';
 const params = {
-    date: '20160912',
+    date: moment().format('YYYYMMDD'),
     api_key: apiKey
 };
 
@@ -31,6 +35,7 @@ let successHandler = (result) => {
             price
         }
     });
+    crud.createBatch(data);
 }
 
 let callback = (err, res, body) => {
