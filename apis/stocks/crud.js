@@ -12,9 +12,12 @@ const kind = 'Stock';
  * CRUD
  */
 
-let getKey = (id) => {
+let getKey = (id, data) => {
     let key;
-    if (id) {
+    if (data && data.ticker && data.date) {
+        key = datastore.key([kind, `${data.ticker}_${data.date}`]);
+    }
+    else if (id) {
         key = datastore.key([kind, id]);
     } else {
         key = datastore.key(kind);
@@ -23,10 +26,10 @@ let getKey = (id) => {
 }
 
 let getEntity = (id, data) => {
-    const key = getKey(id);
+    let key = getKey(id, data);
     const entity = {
-        key: key,
-        data: data
+        key,
+        data
     };
     return entity;
 }
@@ -75,6 +78,7 @@ let createBatch = (dataList) => {
         const entity = getEntity(id, stock);
         return entity;
     });
+    console.log(`Created entities:${entities.length}`);
     return new Promise((resolve, reject) => {
         let count = 0;
         let requestChain = []
@@ -82,6 +86,7 @@ let createBatch = (dataList) => {
             const batch = entities.splice(0,500);
             requestChain.push(datastore.save(batch));
         }
+        console.log(`Created requestChain:${requestChain.length}`);
         Promise.all(requestChain)
             .then((result) => {
                 console.log('createBatch-Success');
@@ -95,6 +100,10 @@ let createBatch = (dataList) => {
     });
 }
 
+
+// readStock('AAPL').then((result)=>{
+//     console.log(result);
+// });
 
 module.exports = {
     create : createStock,
