@@ -71,6 +71,7 @@ let getList = (count) => {
     let limit = count ? count : 1;
     const query = datastore.createQuery(kind)
         .limit(limit);
+    // TO DO: add better filters
 
     return datastore.runQuery(query)
         .then((results) => {
@@ -93,7 +94,7 @@ let createBatch = (dataList) => {
     console.log(`Created entities:${entities.length}`);
     return new Promise((resolve, reject) => {
         let count = 0;
-        let requestChain = []
+        let requestChain = [];
         while(entities.length) {
             const batch = entities.splice(0,500);
             requestChain.push(datastore.save(batch));
