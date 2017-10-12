@@ -1,4 +1,5 @@
 const _ = require('underscore');
+const moment = require('moment');
 const Datastore = require('@google-cloud/datastore');
 const datastore = Datastore();
 
@@ -8,22 +9,32 @@ const datastore = Datastore();
 // });
 const kind = 'Stock';
 
-/*
- * CRUD
- */
 
+let getPreviousWorkday = () => {
+    let day = moment().format('dddd');
+    let diff = 0
+    if (day === 'Sunday') {
+        diff = 2;
+    }
+    if (day === 'Saturday') {
+        diff = 1;
+    };
+    return moment().subtract(diff, 'days').format('YYYY-MM-DD');
+}
+
+/*
+ * id of type 'AAPL'
+ * data of type {ticker, date}
+ */
 let getKey = (id, data) => {
-    let key;
-    if (data && data.ticker && data.date) {
-        key = datastore.key([kind, `${data.ticker}_${data.date}`]);
-    }
-    else if (id) {
-        key = datastore.key([kind, id]);
-    } else {
-        key = datastore.key(kind);
-    }
+    const obj = data ? data : {
+        ticker: id,
+        date: getPreviousWorkday(),
+    };
+    const key = datastore.key([kind, `${obj.ticker}_${obj.date}`]);
     return key;
 }
+
 
 let getEntity = (id, data) => {
     let key = getKey(id, data);
@@ -45,13 +56,14 @@ let createStock = (id, data) => {
     return updateStock(id, data);
 }
 
-let readStock = (id) => {
-    const key = getKey(id);
+
+let readStock = (id, data) => {
+    const key = getKey(id, data);
     return datastore.get(key);
 }
 
-let deleteStock = (id) => {
-    const key = getKey(id);
+let deleteStock = (id, data) => {
+    const key = getKey(id, data);
     return datastore.delete(key);
 }
 
