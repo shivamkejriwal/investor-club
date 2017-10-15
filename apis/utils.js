@@ -20,6 +20,7 @@ let objToParams = (obj) => {
 
 let getData = (url, params, cb) => {
     let query = objToParams(params);
+    // console.log(`getData: ${url}?${query}`);
     request(`${url}?${query}`, { json: true }, cb);
 }
 

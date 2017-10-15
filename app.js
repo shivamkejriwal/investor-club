@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, publicFolder)));
 // Connect Middleware
 app.use('/api/stocks', require('./apis').stocks);
 app.use('/api/watchlists', require('./apis').watchlists);
+app.use('/api/fundamentals', require('./apis').fundamentals);
 
 
 // Serve Index File
