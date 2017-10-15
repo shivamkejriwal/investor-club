@@ -13,7 +13,7 @@ export class SidebarItemTickerComponent implements OnInit {
 
     ngOnInit() {
         let tickerData = this.data;
-        console.log(`name:${tickerData.name} ,value: ${tickerData.value}`);
+        // console.log(`name:${tickerData.name} ,value: ${tickerData.value}`);
     }
 
 }

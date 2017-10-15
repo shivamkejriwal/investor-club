@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { PageHeaderComponent } from './page-components/page-header/page-header.component';
@@ -20,7 +21,8 @@ import { SidebarItemTickerComponent } from './ui-components/sidebar/sidebar-item
     SidebarItemTickerComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
