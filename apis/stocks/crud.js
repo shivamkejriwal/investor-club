@@ -27,9 +27,9 @@ let getPreviousWorkday = () => {
  * data of type {ticker, date}
  */
 let getKey = (id, data) => {
-    const obj = data ? data : {
-        ticker: id,
-        date: getPreviousWorkday(),
+    const obj = {
+        ticker: data.ticker || id,
+        date: data.date || getPreviousWorkday() ,
     };
     const key = datastore.key([kind, `${obj.ticker}_${obj.date}`]);
     return key;

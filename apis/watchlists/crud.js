@@ -45,7 +45,8 @@ let deleteWatchList = (user, id) => {
 }
 
 let getList = (user) => {
-    const query = datastore.createQuery(kind);
+    const query = datastore.createQuery(kind)
+        .filter('user', '=', user);
     // TO DO: add better filters
     return datastore.runQuery(query)
         .then((results) => {
@@ -58,5 +59,6 @@ module.exports = {
     create: createWatchList,
     read: readWatchList,
     update: updateWatchList,
-    delete: deleteWatchList
+    delete: deleteWatchList,
+    list: getList
 };

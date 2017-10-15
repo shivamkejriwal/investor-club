@@ -27,7 +27,7 @@ router.get('/:stock', (req, res, next) => {
     if (!id) {
         errorHandler(res, 'No ID');
     } else {
-        crud.read(id)
+        crud.list(id)
         .then((result) => successHandler(res, result))
         .catch((err) => errorHandler(res, err));
     }

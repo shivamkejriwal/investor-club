@@ -1,3 +1,4 @@
+const _ = require('underscore');
 const crud = require('./crud');
 const stockCrud = require('../stocks/crud');
 const express = require('express');
@@ -66,7 +67,7 @@ router.get('/:user/:id', (req, res, next) => {
     .catch((err) => errorHandler(res, err));
 });
 
-router.get('/read/:user/:id', (req, res, next) => {
+router.get('/:user/:id/read', (req, res, next) => {
     let user = req.params.user;
     let id = req.params.id;
     if (!user) {
@@ -78,15 +79,15 @@ router.get('/read/:user/:id', (req, res, next) => {
 
 
     crud.read(user, id)
-    .then((result) => {
-        let requestChain = [];
-        _.each(result[0].list,(ticker) => {
-            requestChain.push(stockCrud.read(ticker));
-        });
-        return Promise.all(requestChain);
-    })
-    .then((result) => successHandler(res, result))
-    .catch((err) => errorHandler(res, err));
+        .then((result) => {
+            let requestChain = [];
+            _.each(result[0].list, (ticker) => {
+                requestChain.push(stockCrud.read(ticker, {date:'2017-10-11'}));
+            });
+            return Promise.all(requestChain);
+        })
+        .then((result) => successHandler(res, result))
+        .catch((err) => errorHandler(res, err));
 });
 
 router.post('/:user/:id/edit', (req, res, next) => {
