@@ -8,8 +8,8 @@ var companyProfilesApi = require('./company-profiles/api');
 module.exports = {
     stocks : stocksApi,
     fundamentals: fundamentalsApi,
-    portfolio : portfolioApi,
-    watchlist : watchlistApi,
-    userProfile : userProfilesApi,
-    companyProfile : companyProfilesApi,
+    portfolios : portfolioApi,
+    watchlists : watchlistApi,
+    userProfiles : userProfilesApi,
+    companyProfiles : companyProfilesApi,
 };
