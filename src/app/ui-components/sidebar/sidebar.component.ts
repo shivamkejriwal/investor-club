@@ -2,7 +2,9 @@ import {
         Component,
         OnInit,
         OnChanges,
-        Input
+        Input,
+        Output,
+        EventEmitter
     } from '@angular/core';
 
 import { SiderbarSerivce } from './sidebar.service';
@@ -15,6 +17,7 @@ import { Watchlist } from './watchlist';
   providers: [SiderbarSerivce]
 })
 export class SidebarComponent implements OnInit, OnChanges {
+    @Output() selectEvent = new EventEmitter<string>();
     @Input() sidebarIsOpen:boolean;
     tickers:any;
 
@@ -37,5 +40,10 @@ export class SidebarComponent implements OnInit, OnChanges {
     ngOnChanges() {
         console.log(`SidebarComponent-sidebarIsOpen: ${this.sidebarIsOpen}`);
     }
+
+    select(data) {
+        this.selectEvent.emit(data.ticker);
+    }
+
 
 }

@@ -21,4 +21,12 @@ export class PageBodyComponent implements OnInit {
         this.sidebarIsOpen = !this.sidebarIsOpen;
         console.log(`toggleSidebar: ${this.sidebarIsOpen}`);
     }
+
+    selectInSidebar($event) {
+        console.log('Selected', $event);
+    }
+
+    receiveMessage($event) {
+        this.toggleSidebar();
+    }
 }

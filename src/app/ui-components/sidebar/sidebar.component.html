@@ -2,7 +2,7 @@
 <div class="sidebar-wrapper" [ngClass]="{'opened': sidebarIsOpen}">
     <ul class="sidebar-nav">
         <li *ngFor="let ticker of tickers">
-            <app-sidebar-item-ticker [data]="ticker">
+            <app-sidebar-item-ticker [data]="ticker" (click)="select(ticker)">
             </app-sidebar-item-ticker>
         </li>
     </ul>
