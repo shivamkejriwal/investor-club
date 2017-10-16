@@ -17,31 +17,25 @@ import { Watchlist } from './watchlist';
 export class SidebarComponent implements OnInit, OnChanges {
     @Input() sidebarIsOpen:boolean;
     tickers:any;
-    watchlist: Watchlist;
 
     constructor(private service: SiderbarSerivce) {
+        this.tickers = [];
     }
 
     getWatchlist() {
         return this.service.getWatchlists()
-                .subscribe(watchlist => this.tickers = watchlist.list);
+                .subscribe((watchlist) => {
+                    this.tickers = watchlist.list
+                });
     }
 
     ngOnInit() {
         console.log(`SidebarComponent`);
         this.getWatchlist();
-        this.tickers = [];
-        // this.tickers = [
-        //     { ticker: 'AAPL', price: 12 },
-        //     { ticker: 'GOOGL', price: 20 },
-        //     { ticker: 'LB', price: 50.5 },
-        //     { ticker: 'MAT', price: 23.5 }
-        // ];
     }
 
     ngOnChanges() {
         console.log(`SidebarComponent-sidebarIsOpen: ${this.sidebarIsOpen}`);
-        // console.log('watchlist:', this.watchlist);
     }
 
 }

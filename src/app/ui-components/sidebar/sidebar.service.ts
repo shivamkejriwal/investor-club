@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { Watchlist } from './watchlist';
+import { Watchlist, MockWatchList } from './watchlist';
 import 'rxjs/add/operator/map';
+
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class SiderbarSerivce {
@@ -31,6 +33,13 @@ export class SiderbarSerivce {
     }
 
     getWatchlists(): Observable<Watchlist> {
+        if (!environment.production) {
+            // return mockdata if not in production
+            const watchlist = MockWatchList();
+            console.log('MockWatchList', watchlist);
+            return Observable.of(watchlist);
+        }
+
         const url = `/api/watchlists/${this.user}/${this.watchlistId}/read`;
         return this.http.get(url)
                 .map(this.extractData);
