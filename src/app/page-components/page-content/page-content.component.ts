@@ -15,21 +15,26 @@ import { FundamentalsSerivce } from './fundamentals.service';
 export class PageContentComponent implements OnInit {
     @Output() toggleEvent = new EventEmitter<string>();
     @Input() pageData:string;
-    data:any;
+    currentData: any;
 
     constructor(private service: FundamentalsSerivce) {
-        this.data = {};
+        this.currentData = {};
     }
 
     ngOnInit() {
     }
 
+    private setupPage = (fundamentals) => {
+        fundamentals.sort();
+        console.log('setupPage', fundamentals);
+        const list = fundamentals.list;
+        this.currentData = (list.length > 0) ? list[list.length - 1] : {};
+        console.log('currentData', this.currentData);
+    }
+
     getFundamentals(ticker) {
         return this.service.getFundamentals(ticker)
-                .subscribe((fundamentals) => {
-                    console.log('getFundamentals-fundamentals', fundamentals);
-                    this.data = fundamentals;
-                });
+                .subscribe(this.setupPage);
     }
 
     ngOnChanges() {

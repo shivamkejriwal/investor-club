@@ -15,10 +15,7 @@ export class FundamentalsSerivce {
     private extractData = (res: Response) => {
         const response = res.json();
         const data = response.result || [];
-        let fundamentals : Fundamentals = {
-            ticker: this.ticker,
-            list: data
-        };
+        let fundamentals  = new Fundamentals(this.ticker, data);
         if (data.length > 0) {
             fundamentals.list = data.map((value) => {
                 return (value.length > 0) ? value[0] : value;

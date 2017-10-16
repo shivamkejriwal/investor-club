@@ -1,3 +1,13 @@
 .motto {
+    display: block;
     float: left;
+}
+
+.page-data {
+    display: inline-block;
+    width: 100%;
+}
+
+.page-data .ticker {
+    float: right;
 }

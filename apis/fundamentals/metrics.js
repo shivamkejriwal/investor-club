@@ -40,13 +40,21 @@ const ROA = (netIncome, assets) => {
     return parseFloat(result.toFixed(8));
 }
 
+const ROCE = (netIncome, liabilitiesNC) => {
+    if (!netIncome) return '';
+    if (!liabilitiesNC) return '';
+    const result = parseFloat(netIncome)/parseFloat(liabilitiesNC);
+    return parseFloat(result.toFixed(8));
+}
+
 const populate = (data) => {
     data.PE = PE(data.PRICE, data.EPS);
-    data.PB = PE(data.PRICE, data.BVPS);
-    data.DIVYIELD = PE(data.DPS, data.PRICE);
-    data.PAYOUTRATIO = PE(data.DPS, data.EPS);
-    data.ROE = PE(data.NETINC, data.EQUITY);
-    data.ROA = PE(data.NETINC, data.ASSETS);
+    data.PB = PB(data.PRICE, data.BVPS);
+    data.DIVYIELD = DIVYIELD(data.DPS, data.PRICE);
+    data.PAYOUTRATIO = PAYOUTRATIO(data.DPS, data.EPS);
+    data.ROE = ROE(data.NETINC, data.EQUITY);
+    data.ROA = ROA(data.NETINC, data.ASSETS);
+    data.ROCE = ROCE(data.NETINC, data.LIABILITIESNC);
 }
 
 module.exports = {
