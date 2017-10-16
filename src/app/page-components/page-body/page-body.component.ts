@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageBodyComponent implements OnInit {
     sidebarIsOpen: boolean = false;
+    pageData: string = '';
 
     constructor() {
         // this.sidebarIsOpen = false;
@@ -24,6 +25,7 @@ export class PageBodyComponent implements OnInit {
 
     selectInSidebar($event) {
         console.log('Selected', $event);
+        this.pageData = $event;
     }
 
     receiveMessage($event) {

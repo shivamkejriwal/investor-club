@@ -1,7 +1,11 @@
 <div class="pageBody">
     <app-sidebar [sidebarIsOpen]='sidebarIsOpen'
-        (selectEvent)="selectInSidebar($event)"></app-sidebar>
+                (selectEvent)="selectInSidebar($event)">
+    </app-sidebar>
     <div class="page-content-wrapper"  [ngClass]="{'sidebarIsOpen': sidebarIsOpen}">
-        <app-page-content (toggleEvent)="toggleSidebar($event)"></app-page-content>
+        <app-page-content
+            (toggleEvent)="toggleSidebar($event)"
+            [pageData]='pageData'>
+        </app-page-content>
     </div>
 </div>
