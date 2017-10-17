@@ -10,6 +10,12 @@ import { NavbarComponent } from './ui-components/navbar/navbar.component';
 import { SidebarComponent } from './ui-components/sidebar/sidebar.component';
 import { SidebarItemTickerComponent } from './ui-components/sidebar/sidebar-item-ticker/sidebar-item-ticker.component';
 import { PageContentComponent } from './page-components/page-content/page-content.component';
+import { ValueSectionComponent } from './section-components/value-section/value-section.component';
+import { HealthSectionComponent } from './section-components/health-section/health-section.component';
+import { DividendSectionComponent } from './section-components/dividend-section/dividend-section.component';
+import { ManagementSectionComponent } from './section-components/management-section/management-section.component';
+import { PerformanceSectionComponent } from './section-components/performance-section/performance-section.component';
+import { IntroSectionComponent } from './section-components/intro-section/intro-section.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,13 @@ import { PageContentComponent } from './page-components/page-content/page-conten
     NavbarComponent,
     SidebarComponent,
     SidebarItemTickerComponent,
-    PageContentComponent
+    PageContentComponent,
+    ValueSectionComponent,
+    HealthSectionComponent,
+    DividendSectionComponent,
+    ManagementSectionComponent,
+    PerformanceSectionComponent,
+    IntroSectionComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+.section-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 200px;
+    padding: 5px;
+    margin: 0px 0px 30px;
+    background: #f1f4f5;
+    border: 1px solid #d0d0d0;
+}
+.section-header {
+    height: 50px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border-bottom: thin solid rgb(71, 97, 124);
+}
+.section-title {
+    float: left;
+    font-size: 31px;
+    line-height: 37px;
+}
+.section-score {
+    float: right;
+    font-size: 20px;
+    line-height: 37px;
+}
+.section-guide {}
+.section-content {}

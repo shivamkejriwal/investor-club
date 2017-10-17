@@ -11,3 +11,14 @@
 .page-data .ticker {
     float: right;
 }
+
+
+.intro-wrapper {
+    /*position: absolute;*/
+    height: 400px;
+    margin: 0px 0px 30px;
+}
+
+.content-wrapper {
+    /*position: absolute;*/
+}

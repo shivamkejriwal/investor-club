@@ -1,0 +1,33 @@
+
+.intro-wrapper {
+    /*position: absolute;*/
+    display: inline-block;
+    width: 100%;
+    height: 400px;
+    padding: 5px;
+    margin: 0px 0px 30px;
+    background: #f1f4f5;
+    border: 1px solid #d0d0d0;
+    /*margin-left: -15px;*/
+    /*margin-right: -15px;*/
+}
+
+.backBlur {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    /*background: #000;*/
+}
+
+.upperSection {
+    display: inline-flex;
+    width: 100%;
+}
+.companyName {
+    float: left;
+    margin-right: auto;
+}
+.tickerContainer {
+    float: right;
+    margin-left: auto;
+}
