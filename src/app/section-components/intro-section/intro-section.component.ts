@@ -13,9 +13,11 @@ export class IntroSectionComponent implements OnInit {
     currentData: any;
     title: string;
     score: number;
+    companyName: string;
     constructor() {
         this.title = 'Intro';
         this.score = .3;
+        this.companyName = 'V.F Corporation';
     }
 
     ngOnInit() {

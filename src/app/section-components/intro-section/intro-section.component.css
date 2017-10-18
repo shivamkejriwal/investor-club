@@ -2,10 +2,10 @@
 .intro-wrapper {
     /*position: absolute;*/
     display: inline-block;
-    width: 100%;
+    width: calc(100% + 32px);
     height: 400px;
     padding: 5px;
-    margin: 0px 0px 30px;
+    margin: 0px 0px 30px -16px;
     background: #f1f4f5;
     border: 1px solid #d0d0d0;
     /*margin-left: -15px;*/
@@ -15,19 +15,64 @@
 .backBlur {
     position: relative;
     overflow: hidden;
-    height: 200px;
+    /*height: 200px;*/
     /*background: #000;*/
 }
 
 .upperSection {
     display: inline-flex;
-    width: 100%;
+    width: calc(100% + 32px);
+    /*height: 50px;*/
+    /*padding-bottom: 8px;*/
+    /*padding-top: 8px;*/
+    border-bottom: thin solid rgb(71, 97, 124);
+    background: #FFFFFF;
+    margin: -6px -6px 0px -6px;
 }
+
+.midSection {
+    margin: 0 10px;
+}
+
 .companyName {
     float: left;
+    margin-left: 10px;
     margin-right: auto;
+    margin-top: 60px;
+    font-size: 40px;
+    line-height: 40px;
 }
 .tickerContainer {
     float: right;
+    margin-right: 30px;
     margin-left: auto;
+    margin-bottom: -100px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    font-size: 50px;
+    color: #080808;
+    line-height: 200px;
+    text-align: center;
+    background: #FFFFFF;
+    border: thin solid #40576F;
+
+}
+
+
+@media screen and (max-width: 600px){
+    .tickerContainer {
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        margin-bottom: -50px;
+        font-size: 25px;
+        margin-right: 50px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .tickerContainer {
+        display: none;
+    }
 }
