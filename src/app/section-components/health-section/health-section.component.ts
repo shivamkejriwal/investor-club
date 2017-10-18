@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'app-health-section',
@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
         '../section-components.css'
     ]
 })
-export class HealthSectionComponent implements OnInit {
+export class HealthSectionComponent implements OnChanges {
     @Input() fundamentals:any;
     currentData: any;
     title: string;
@@ -16,10 +16,11 @@ export class HealthSectionComponent implements OnInit {
     constructor() {
         this.title = 'Health';
         this.score = .9;
+        this.currentData = {};
     }
 
-    ngOnInit() {
-        const list = this.fundamentals.list;
+    ngOnChanges() {
+        const list = this.fundamentals.list || [];
         this.currentData = (list.length > 0) ? list[list.length - 1] : {};
     }
 

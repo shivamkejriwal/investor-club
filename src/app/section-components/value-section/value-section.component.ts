@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'app-value-section',
@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
         '../section-components.css'
     ]
 })
-export class ValueSectionComponent implements OnInit {
+export class ValueSectionComponent implements OnChanges {
     @Input() fundamentals:any;
     currentData: any;
     title: string;
@@ -16,10 +16,11 @@ export class ValueSectionComponent implements OnInit {
     constructor() {
         this.title = 'Value';
         this.score = .6;
+        this.currentData = {};
     }
 
-    ngOnInit() {
-        const list = this.fundamentals.list;
+    ngOnChanges() {
+        const list = this.fundamentals.list || [];
         this.currentData = (list.length > 0) ? list[list.length - 1] : {};
     }
 
