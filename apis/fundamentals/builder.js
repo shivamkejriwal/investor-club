@@ -31,12 +31,18 @@ const rawIndicators = [
     'SHARESWA', // Weighted Average Shares
     'NETINC', // Net Income
     'REVENUE',
+    'COR', // Cost of Revenue
+    'GP', // Gross Profit
     'ASSETS',
     'ASSETSC',
     'ASSETSNC',
     'LIABILITIES',
     'LIABILITIESC',
     'LIABILITIESNC',
+    'RECEIVABLES',
+    'PAYABLES',
+    'INVCAP', // Invested Capital
+    'CAPEX', // Capital Expenditure
     'DEBT', // Total Debt
     'EQUITY', // Shareholders Equity
     'FCF', // Free Cash Flow
@@ -45,7 +51,9 @@ const rawIndicators = [
     'DPS', // Dividends per Basic Common Share
     'BVPS', // Book Value per Share
     'DE', // Debt to Equity Ratio
-    'CURRENTRATIO' // Current Ratio
+    'CURRENTRATIO', // Current Ratio
+    'DILUTIONRATIO', // Share Dilution Ratio
+    'RND' // Research and Development Expense
 ];
 
 let getFundamentalsUrl = (ticker, indicator, dimension) => {

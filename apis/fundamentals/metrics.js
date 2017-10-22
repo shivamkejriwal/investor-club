@@ -47,6 +47,20 @@ const ROCE = (netIncome, liabilitiesNC) => {
     return parseFloat(result.toFixed(8));
 }
 
+const assetTurnover = (revenue, assets) => {
+    if (!revenue) return '';
+    if (!assets) return '';
+    const result = parseFloat(revenue)/parseFloat(assets);
+    return parseFloat(result.toFixed(8));
+}
+
+const NETMARGIN = (netIncome, revenue) => {
+    if (!netIncome) return '';
+    if (!revenue) return '';
+    const result = parseFloat(netIncome)/parseFloat(revenue);
+    return parseFloat(result.toFixed(8));
+}
+
 const populate = (data) => {
     data.PE = PE(data.PRICE, data.EPS);
     data.PB = PB(data.PRICE, data.BVPS);
@@ -55,6 +69,8 @@ const populate = (data) => {
     data.ROE = ROE(data.NETINC, data.EQUITY);
     data.ROA = ROA(data.NETINC, data.ASSETS);
     data.ROCE = ROCE(data.NETINC, data.LIABILITIESNC);
+    data.assetTurnover = ROCE(data.REVENUE, data.ASSETS);
+    data.NETMARGIN = ROCE(data.NETINC, data.REVENUE);
 }
 
 module.exports = {
