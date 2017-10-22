@@ -2,7 +2,8 @@
     position: relative;
     display: inline-block;
     width: 100%;
-    height: 200px;
+    min-height: 200px;
+    height: 100%;
     padding: 5px;
     margin: 0px 0px 30px;
     background: #f1f4f5;
@@ -25,4 +26,11 @@
     line-height: 37px;
 }
 .section-guide {}
-.section-content {}
+.section-content {
+    display: block;
+    overflow:auto;
+}
+
+.chart-container {
+    position: relative;
+}

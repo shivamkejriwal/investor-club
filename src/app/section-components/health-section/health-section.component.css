@@ -1,0 +1,15 @@
+.chart-container {
+    min-height: 600px;
+    min-width: 350px;
+    width: 30%;
+    /*overflow: visible;*/
+    float: right;
+}
+
+.chart-containerB {
+    min-height: 300px;
+    min-width: 350px;
+    width: 50%;
+    /*overflow: visible;*/
+    float: left;
+}

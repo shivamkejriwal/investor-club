@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import Utils from '../utils.js';
 
 @Component({
     selector: 'app-dividend-section',
@@ -21,8 +22,16 @@ export class DividendSectionComponent implements OnChanges {
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
-        this.currentData = (list.length > 0) ? list[list.length - 1] : {};
+        this.currentData = Utils.getLastObject(list);
     }
 
 
 }
+
+
+// Paying above low risk savings rate (2.25%).
+// Paying below markets top dividend payers (3.18%).
+// Dividends per share have been stable in the past 10 years.
+// Dividends per share have increased over the past 10 years.
+// Dividends paid are covered by net profit (1.7x coverage).
+// Dividends after 3 years are expected to be covered by net profit (1.9x coverage).

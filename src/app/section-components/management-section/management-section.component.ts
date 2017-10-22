@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import Utils from '../utils.js';
 
 @Component({
     selector: 'app-management-section',
@@ -21,8 +22,14 @@ export class ManagementSectionComponent implements OnChanges {
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
-        this.currentData = (list.length > 0) ? list[list.length - 1] : {};
+        this.currentData = Utils.getLastObject(list);
     }
 
 
 }
+
+
+// Steve's compensation has increased by more than 20% in the past year.
+// Steve's compensation appears reasonable.
+// The tenure for the V.F management team is about average.
+// The tenure for the V.F board of directors is about average.
