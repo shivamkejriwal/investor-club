@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import Utils from '../utils.js';
+import { Utils } from '../utils';
 
 @Component({
     selector: 'app-management-section',
@@ -23,7 +23,9 @@ export class ManagementSectionComponent implements OnChanges {
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
-        this.currentData = Utils.getLastObject(list);
+        if (list.length > 0) {
+            this.currentData = Utils.getLastObject(list);
+        }
     }
 
 

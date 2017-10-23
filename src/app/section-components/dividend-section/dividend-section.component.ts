@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import Utils from '../utils.js';
+import { Utils } from '../utils';
 
 @Component({
     selector: 'app-dividend-section',

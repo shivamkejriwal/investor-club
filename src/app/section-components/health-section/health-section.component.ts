@@ -1,7 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import Chart from 'chart.js';
-import Utils from '../utils.js';
-
+import { Utils } from '../utils';
 
 
 
@@ -27,9 +26,11 @@ export class HealthSectionComponent implements OnChanges {
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
-        this.currentData = Utils.getLastObject(list);
-        this.buildChartA();
-        this.buildChartB();
+        if (list.length > 0) {
+            this.currentData = Utils.getLastObject(list);
+            this.buildChartA();
+            this.buildChartB();
+        }
     }
 
     buildChartA() {

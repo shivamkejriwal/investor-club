@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import Chart from 'chart.js';
-import Utils from '../utils.js';
+import { Utils } from '../utils';
 
 @Component({
     selector: 'app-performance-section',
@@ -24,9 +24,12 @@ export class PerformanceSectionComponent implements OnChanges {
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
-        this.currentData = Utils.getLastObject(list);
-        this.buildPerformanceChart();
-        this.buildEarningsChart();
+        if (list.length > 0) {
+            this.currentData = Utils.getLastObject(list);
+            this.buildPerformanceChart();
+            this.buildEarningsChart();
+        }
+
     }
 
     buildPerformanceChart() {

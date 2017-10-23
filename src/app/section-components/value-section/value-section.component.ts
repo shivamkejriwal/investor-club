@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import Chart from 'chart.js';
-import Utils from '../utils.js';
+import { Utils } from '../utils';
 
 @Component({
     selector: 'app-value-section',
@@ -251,9 +251,11 @@ export class ValueSectionComponent implements OnChanges {
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
-        this.currentData = Utils.getLastObject(list);
-        // this.buildChart();
-        this.buildMixedCart();
+        if (list.length > 0) {
+            this.currentData = Utils.getLastObject(list);
+            // this.buildChart();
+            this.buildMixedCart();
+        }
     }
 
 }

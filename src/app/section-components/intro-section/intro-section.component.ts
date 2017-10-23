@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, ViewChild, ElementRef  } from '@angular/core';
 import Chart from 'chart.js';
-import Utils from '../utils.js';
+import { Utils } from '../utils';
 
 @Component({
     selector: 'app-intro-section',
@@ -28,8 +28,10 @@ export class IntroSectionComponent implements OnChanges {
     ngOnChanges() {
         console.log('IntroSectionComponent-fundamentals',this.fundamentals);
         const list = this.fundamentals.list || [];
-        this.currentData = Utils.getLastObject(list);
-        this.buildChart();
+        if (list.length > 0) {
+            this.currentData = Utils.getLastObject(list);
+            this.buildChart();
+        }
     }
 
     buildChart() {
