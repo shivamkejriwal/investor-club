@@ -11,6 +11,7 @@ import Utils from '../utils.js';
 })
 export class ManagementSectionComponent implements OnChanges {
     @Input() fundamentals:any;
+    @Input() profile:any;
     currentData: any;
     title: string;
     score: number;

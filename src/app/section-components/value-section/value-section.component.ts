@@ -12,6 +12,7 @@ import Utils from '../utils.js';
 })
 export class ValueSectionComponent implements OnChanges {
     @Input() fundamentals:any;
+    @Input() profile:any;
     @ViewChild('myChart') myChart: ElementRef;
     currentData: any;
     title: string;

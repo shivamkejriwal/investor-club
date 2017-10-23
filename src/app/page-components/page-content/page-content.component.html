@@ -5,14 +5,14 @@
     </div>
     <div *ngIf="pageData" class="page-data">
         <div class="intro-wrapper">
-            <app-intro-section [fundamentals]="fundamentals" ></app-intro-section>
+            <app-intro-section [fundamentals]="fundamentals" [profile]="profile"></app-intro-section>
         </div>
         <div class="content-wrapper">
-            <app-health-section [fundamentals]="fundamentals" ></app-health-section>
-            <app-value-section [fundamentals]="fundamentals" ></app-value-section>
-            <app-performance-section [fundamentals]="fundamentals" ></app-performance-section>
-            <app-dividend-section [fundamentals]="fundamentals" ></app-dividend-section>
-            <app-management-section [fundamentals]="fundamentals" ></app-management-section>
+            <app-health-section [fundamentals]="fundamentals" [profile]="profile"></app-health-section>
+            <app-value-section [fundamentals]="fundamentals" [profile]="profile"></app-value-section>
+            <app-performance-section [fundamentals]="fundamentals" [profile]="profile"></app-performance-section>
+            <app-dividend-section [fundamentals]="fundamentals" [profile]="profile"></app-dividend-section>
+            <app-management-section [fundamentals]="fundamentals" [profile]="profile"></app-management-section>
         </div>
     </div>
 </div>

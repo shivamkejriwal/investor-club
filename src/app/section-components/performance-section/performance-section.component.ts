@@ -12,6 +12,7 @@ import Utils from '../utils.js';
 })
 export class PerformanceSectionComponent implements OnChanges {
     @Input() fundamentals:any;
+    @Input() profile:any;
     currentData: any;
     title: string;
     score: number;

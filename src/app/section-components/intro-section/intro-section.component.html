@@ -1,15 +1,17 @@
 <div class="intro-wrapper">
     <div class="backBlur"></div>
     <div class="upperSection">
-        <div class="companyName">{{companyName}}</div>
+        <div class="companyName">{{profile.name}}</div>
         <div class="tickerContainer">
-            <div class="ticker">{{currentData.ticker}}</div>
+            <div class="ticker">{{profile.ticker}}</div>
         </div>
     </div>
     <div class="midSection">
         <p>Report Date <span>{{currentData.date}}</span></p>
     </div>
     <div class="lowerSection">
+        <p class="ticker">{{profile.sector}}</p>
+        <p class="ticker">{{profile.industry}}</p>
         <div  class="chart-container">
             <canvas id="polarArea"></canvas>
         </div>

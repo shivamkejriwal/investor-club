@@ -12,6 +12,7 @@ import Utils from '../utils.js';
 })
 export class IntroSectionComponent implements OnChanges {
     @Input() fundamentals:any;
+    @Input() profile:any;
     @ViewChild('polarArea') myChart: ElementRef;
     currentData: any;
     title: string;
