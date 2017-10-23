@@ -1,0 +1,12 @@
+.chart-containerA {
+    height: 30%;
+    width: 30%;
+}
+
+.chart-containerB {
+    min-height: 300px;
+    min-width: 350px;
+    width: 50%;
+    /*overflow: visible;*/
+    float: left;
+}

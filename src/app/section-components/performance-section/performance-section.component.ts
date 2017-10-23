@@ -24,10 +24,11 @@ export class PerformanceSectionComponent implements OnChanges {
     ngOnChanges() {
         const list = this.fundamentals.list || [];
         this.currentData = Utils.getLastObject(list);
-        this.buildChart();
+        this.buildPerformanceChart();
+        this.buildEarningsChart();
     }
 
-    buildChart() {
+    buildPerformanceChart() {
         const roe = this.currentData.ROE;
         const roa = this.currentData.ROA;
         const roce = this.currentData.ROCE;
@@ -84,7 +85,71 @@ export class PerformanceSectionComponent implements OnChanges {
         });
     }
 
+    buildEarningsChart() {
+        var ctx = document.getElementById("earningsChart");
+        const list = this.fundamentals.list;
+        const years = Utils.reduce(list, 'date', (val) => val.split('-')[0]);
+        const revenue = Utils.reduce(list, 'REVENUE',(val) => val);
+        const netIncome = Utils.reduce(list, 'NETINC', (val) => val);
+        var data = {
+            labels: years,
+            datasets: [
+                {
+                    label: 'Earnings',
+                    data: netIncome,
+                    // fill: false,
+                    backgroundColor: 'rgba(249, 201, 117, 1)'
+                },
+                {
+                    label: 'Revenue',
+                    data: revenue,
+                    // fill: false,
+                    backgroundColor: 'rgba(126, 158, 123, 1)'
+                }
 
+            ]
+        };
+        var options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: true,
+                position: 'bottom',
+            },
+            title: {
+                display: false
+            },
+            scales: {
+                xAxes: [
+                    {
+                        gridLines: {
+                            display:false
+                        },
+                        ticks: {
+                            display: true,
+                            beginAtZero: true
+                        }
+                    }
+                ],
+                yAxes: [
+                    {
+                        gridLines: {
+                            drawBorder: false,
+                            display:false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                ]
+            }
+        };
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data,
+            options
+        });
+    }
 }
 
 // V.F's earnings growth is expected to exceed the low risk savings rate of 3.6%

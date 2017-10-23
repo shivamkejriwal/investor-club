@@ -56,7 +56,7 @@ export class HealthSectionComponent implements OnChanges {
                         this.currentData.LIABILITIESNC,
                         this.currentData.ASSETSNC
                     ],
-                    backgroundColor: 'rgba(249, 201, 117, 1)'
+                    backgroundColor: 'rgba(249, 201, 117, 1)' //yellow
                 }
             ]
         };
