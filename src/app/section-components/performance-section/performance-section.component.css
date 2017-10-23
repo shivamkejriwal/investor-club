@@ -1,9 +1,15 @@
-.chart-containerA {
-    height: 30%;
-    width: 30%;
+.performance-gauge-wrapper {
+    /*margin-top: 20px;*/
+    margin: 20px auto;
 }
 
-.chart-containerB {
+.chart-container-gauge {
+    height: 300px;
+    width: 300px;
+    float: left;
+}
+
+.chart-container {
     min-height: 300px;
     min-width: 350px;
     width: 50%;

@@ -5,13 +5,19 @@
     </div>
     <div class="section-guide"></div>
     <div class="section-content">
-        <p>ROE <span>{{currentData.ROE}}</span></p>
-        <p>ROA <span>{{currentData.ROA}}</span></p>
-        <p>ROCE <span>{{currentData.ROCE}}</span></p>
-        <div  class="chart-containerA">
-            <canvas id="performanceChart"></canvas>
+        <div class="performance-gauge-wrapper">
+            <div  class="chart-container-gauge">
+                <canvas id="roeChart"></canvas>
+            </div>
+            <div  class="chart-container-gauge">
+                <canvas id="roaChart"></canvas>
+            </div>
+            <div  class="chart-container-gauge">
+                <canvas id="roceChart"></canvas>
+            </div>
         </div>
-        <div  class="chart-containerB">
+
+        <div  class="chart-container">
             <canvas id="earningsChart"></canvas>
         </div>
     </div>

@@ -2,6 +2,58 @@ import { Component, Input, OnChanges } from '@angular/core';
 import Chart from 'chart.js';
 import { Utils } from '../utils';
 
+const generateGaugeChart = (key, value, divID) => {
+    var ctx = document.getElementById(divID);
+    let data = {
+        labels: [key, ''],
+        datasets: [
+                {
+                    label: key,
+                    data: [value,100-value],
+                    fillOpacity: .3,
+                    borderWidth: 1,
+                    borderColor: 'white',
+                    backgroundColor: [
+                        "rgba(126, 158, 123, 1)",
+                        "rgba(249, 201, 117, .5)"
+                    ]
+                }
+        ],
+    };
+    let options = {
+        responsive: true,
+        rotation: .75 * Math.PI,
+        circumference: 1.5 * Math.PI,
+        title: {
+            display: false
+        },
+        tooltips: {
+            enabled: false
+        },
+        legend: {
+            display: true,
+            position: 'bottom',
+            labels: {
+                boxWidth: 0,
+                fontStyle: 'bold',
+                fontSize: 15,
+                generateLabels: () => {
+                    return [
+                        {
+                            text: `${key} : ${value}%`
+                        }
+                    ]
+                }
+            }
+        }
+    };
+    var chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: options
+    });
+};
+
 @Component({
     selector: 'app-performance-section',
     templateUrl: './performance-section.component.html',
@@ -33,60 +85,12 @@ export class PerformanceSectionComponent implements OnChanges {
     }
 
     buildPerformanceChart() {
-        const roe = this.currentData.ROE;
-        const roa = this.currentData.ROA;
-        const roce = this.currentData.ROCE;
-        var ctx = document.getElementById("performanceChart");
-        let data = {
-            labels: ['', ''],
-            datasets: [
-                    {
-                        label: 'ROE',
-                        data: [roe,1-roe],
-                        fillOpacity: .3,
-                        backgroundColor: [
-                            "rgba(100, 0, 0, 0.3)",
-                            "rgba(100, 100, 0, 0.3)"
-                        ]
-                    },
-                    {
-                        label: 'ROA',
-                        data: [roa,1-roa],
-                        fillOpacity: .3,
-                        backgroundColor: [
-                            "rgba(200, 0, 0, 0.3)",
-                            "rgba(200, 200, 0, 0.3)"
-                        ]
-                    },
-                    {
-                        label: 'ROCE',
-                        data: [roce,1-roce],
-                        fillOpacity: .3,
-                        backgroundColor: [
-                            "rgba(250, 0, 0, 0.3)",
-                            "rgba(250, 250, 0, 0.3)"
-                        ]
-                    }
-            ],
-        };
-        let options = {
-            responsive: true,
-            rotation: 1 * Math.PI,
-            circumference: 1 * Math.PI,
-            title: {
-                display: false
-            },
-            legend: {
-                display: false,
-                position: 'right'
-            }
-            // ,scale: {}
-        };
-        var chart = new Chart(ctx, {
-            type: 'pie',
-            data: data,
-            options: options
-        });
+        const roe = Math.round(this.currentData.ROE * 100);
+        const roa = Math.round(this.currentData.ROA * 100);
+        const roce = Math.round(this.currentData.ROCE * 100);
+        generateGaugeChart('ROE', roe, "roeChart");
+        generateGaugeChart('ROA', roa, "roaChart");
+        generateGaugeChart('ROCE', roce, "roceChart");
     }
 
     buildEarningsChart() {
