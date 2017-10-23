@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, publicFolder)));
 app.use('/api/stocks', require('./apis').stocks);
 app.use('/api/watchlists', require('./apis').watchlists);
 app.use('/api/fundamentals', require('./apis').fundamentals);
+app.use('/api/companyProfiles', require('./apis').companyProfiles);
 
 
 // Serve Index File
