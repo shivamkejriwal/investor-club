@@ -47,6 +47,13 @@ const ROCE = (netIncome, liabilitiesNC) => {
     return parseFloat(result.toFixed(8));
 }
 
+const ROIC = (netIncome, investedCapital) => {
+    if (!netIncome) return '';
+    if (!investedCapital) return '';
+    const result = parseFloat(netIncome)/parseFloat(investedCapital);
+    return parseFloat(result.toFixed(8));
+}
+
 const assetTurnover = (revenue, assets) => {
     if (!revenue) return '';
     if (!assets) return '';
@@ -69,6 +76,7 @@ const populate = (data) => {
     data.ROE = ROE(data.NETINC, data.EQUITY);
     data.ROA = ROA(data.NETINC, data.ASSETS);
     data.ROCE = ROCE(data.NETINC, data.LIABILITIESNC);
+    data.ROIC = ROCE(data.NETINC, data.INVCAP);
     data.assetTurnover = ROCE(data.REVENUE, data.ASSETS);
     data.NETMARGIN = ROCE(data.NETINC, data.REVENUE);
 }

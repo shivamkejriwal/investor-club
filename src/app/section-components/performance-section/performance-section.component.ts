@@ -88,9 +88,11 @@ export class PerformanceSectionComponent implements OnChanges {
         const roe = Math.round(this.currentData.ROE * 100);
         const roa = Math.round(this.currentData.ROA * 100);
         const roce = Math.round(this.currentData.ROCE * 100);
+        const roic = Math.floor(this.currentData.NETINC * 100 /this.currentData.INVCAP);
         generateGaugeChart('ROE', roe, "roeChart");
         generateGaugeChart('ROA', roa, "roaChart");
         generateGaugeChart('ROCE', roce, "roceChart");
+        generateGaugeChart('ROIC', roic, "roicChart");
     }
 
     buildEarningsChart() {

@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import Chart from 'chart.js';
 import { Utils } from '../utils';
 
 @Component({
@@ -23,9 +24,64 @@ export class DividendSectionComponent implements OnChanges {
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
-        this.currentData = Utils.getLastObject(list);
+        if (list.length > 0) {
+            this.currentData = Utils.getLastObject(list);
+            this.buildPayoutChart();
+        }
     }
 
+    buildPayoutChart() {
+        const value = Math.round(this.currentData.PAYOUTRATIO * 100);
+        var ctx = document.getElementById('payoutChart');
+        let data = {
+            labels: ['Dividend Payout', ''],
+            datasets: [
+                    {
+                        label: 'Dividend Payout',
+                        data: [value,100-value],
+                        fillOpacity: .3,
+                        borderWidth: 1,
+                        borderColor: 'white',
+                        backgroundColor: [
+                            "rgba(126, 158, 123, 1)",
+                            "rgba(249, 201, 117, .5)"
+                        ]
+                    }
+            ],
+        };
+        let options = {
+            responsive: true,
+            rotation: 2 * Math.PI,
+            circumference: 2 * Math.PI,
+            title: {
+                display: false
+            },
+            tooltips: {
+                enabled: true
+            },
+            legend: {
+                display: true,
+                position: 'bottom'
+                // labels: {
+                //     boxWidth: 0,
+                //     fontStyle: 'bold',
+                //     fontSize: 15
+                //     // generateLabels: () => {
+                //     //     return [
+                //     //         {
+                //     //             text: `${key} : ${value}%`
+                //     //         }
+                //     //     ]
+                //     }
+                // }
+            }
+        };
+        var chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+            options: options
+        });
+    }
 
 }
 
