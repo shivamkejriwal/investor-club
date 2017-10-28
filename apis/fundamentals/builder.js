@@ -41,6 +41,10 @@ const rawIndicators = [
     'LIABILITIESNC',
     'RECEIVABLES',
     'PAYABLES',
+    'NCFI', // Net Cash Flow from Investing
+    'NCFO', // Net Cash Flow from Operations
+    'NCFF', // Net Cash Flow from Financing
+    'NCFDEBT', // Issuance (Repayment) of Debt Securities
     'INVCAP', // Invested Capital
     'CAPEX', // Capital Expenditure
     'DEBT', // Total Debt
