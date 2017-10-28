@@ -33,8 +33,9 @@ export class DividendSectionComponent implements OnChanges {
     buildPayoutChart() {
         const value = Math.round(this.currentData.PAYOUTRATIO * 100);
         var ctx = document.getElementById('payoutChart');
+        const labels = ['Dividend Payout', 'Retained Earnings'];
         let data = {
-            labels: ['Dividend Payout', ''],
+            labels,
             datasets: [
                     {
                         label: 'Dividend Payout',
@@ -57,23 +58,20 @@ export class DividendSectionComponent implements OnChanges {
                 display: false
             },
             tooltips: {
-                enabled: true
+                enabled: true,
+                callbacks: {
+                    label: (tooltipItem, chart) => {
+                        const index = tooltipItem.index;
+                        const data = chart.datasets[0].data;
+                        const key  = labels[index];
+                        const value = data[index];
+                        return `${key}: ${value}%`;
+                    },
+                }
             },
             legend: {
                 display: true,
                 position: 'bottom'
-                // labels: {
-                //     boxWidth: 0,
-                //     fontStyle: 'bold',
-                //     fontSize: 15
-                //     // generateLabels: () => {
-                //     //     return [
-                //     //         {
-                //     //             text: `${key} : ${value}%`
-                //     //         }
-                //     //     ]
-                //     }
-                // }
             }
         };
         var chart = new Chart(ctx, {
