@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, ViewChild, ElementRef } from '@angular/core';
 import Chart from 'chart.js';
+import Finance from '../finance';
 import { Utils } from '../utils';
+
 
 @Component({
     selector: 'app-value-section',
@@ -21,6 +23,24 @@ export class ValueSectionComponent implements OnChanges {
         this.title = 'Value';
         this.score = .6;
         this.currentData = {};
+    }
+
+    evaluateDCF() {
+        const timeFrame = 5;
+        const risk = 1.8;
+        const discountRate = 8.5;
+        const riskFreeRate = 2.5;
+
+        const underValued  = Finance.evaluateDCF(this.fundamentals, timeFrame, discountRate + risk, riskFreeRate, '');
+        const fairValue  = Finance.evaluateDCF(this.fundamentals, timeFrame, discountRate, riskFreeRate, '');
+        const overValued  = Finance.evaluateDCF(this.fundamentals, timeFrame, discountRate - risk, riskFreeRate, '');
+        const result = {
+            underValued, fairValue, overValued
+        };
+
+        console.log('evaluateDCF', result);
+        return result;
+
     }
 
     buildChart() {
@@ -79,11 +99,13 @@ export class ValueSectionComponent implements OnChanges {
 
     buildMixedCart() {
         var ctx = document.getElementById("myChart");
-        const max = 110;
-        const fairValuedMax = 85;
-        const underValuedMax = 50;
-        const fairValue = 70;
-        const currentValue = 60;
+        const values = this.evaluateDCF();
+        const max = values.overValued + 20;
+        const fairValuedMax = values.overValued;
+        const underValuedMax = values.underValued;
+        const fairValue = values.fairValue;
+        const rand = (Math.random() - 0.5) * 100;
+        const currentValue = Math.round(fairValue + rand);
         let data = {
             labels: [
                 "Fair Value",
@@ -255,6 +277,7 @@ export class ValueSectionComponent implements OnChanges {
             this.currentData = Utils.getLastObject(list);
             // this.buildChart();
             this.buildMixedCart();
+            this.evaluateDCF();
         }
     }
 
