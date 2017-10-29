@@ -41,6 +41,9 @@ const rawIndicators = [
     'LIABILITIESNC',
     'RECEIVABLES',
     'PAYABLES',
+    'CASHNEQ',
+    'WORKINGCAPITAL',
+    'DEPAMOR', // Depreciation, Amortization & Accretion
     'NCFI', // Net Cash Flow from Investing
     'NCFO', // Net Cash Flow from Operations
     'NCFF', // Net Cash Flow from Financing
