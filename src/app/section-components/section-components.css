@@ -34,3 +34,10 @@
 .chart-container {
     position: relative;
 }
+
+
+.sub-section-title {
+    float: left;
+    font-size: 25px;
+    line-height: 30px;
+}

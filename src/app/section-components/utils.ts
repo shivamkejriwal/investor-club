@@ -14,11 +14,17 @@ const getLastObject = (list) => {
 };
 
 
-
+const divide = (a, b) => {
+    if (!a) return 0;
+    if (!b) return 0;
+    const result = parseFloat(a)/parseFloat(b);
+    return parseFloat(result.toFixed(8));
+};
 
 const Utils = {
     reduce,
-    getLastObject
+    getLastObject,
+    divide
 };
 
 export { Utils };
