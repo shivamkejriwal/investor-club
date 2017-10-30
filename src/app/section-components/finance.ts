@@ -5,16 +5,15 @@ const PV = (ratePercent, cf1, numOfPeriod) => {
   numOfPeriod = typeof numOfPeriod !== 'undefined' ? numOfPeriod : 1;
   var rate = ratePercent/100, pv;
   pv = cf1 / Math.pow((1 + rate),numOfPeriod);
-  return Math.round(pv * 100) / 100;
+  return Utils.round(pv,2);
 };
 
 // Future Value (FV)
 const FV = (ratePercent, cf0, numOfPeriod) => {
   var rate = ratePercent/100, fv;
   fv = cf0 * Math.pow((1 + rate), numOfPeriod);
-  return Math.round(fv * 100) / 100;
+  return Utils.round(fv, 2);
 };
-
 
 // Terminal Value (TV)
 const TV = (longTermRatePercent, discountRatePercent, finalCF) => {
@@ -23,7 +22,13 @@ const TV = (longTermRatePercent, discountRatePercent, finalCF) => {
   return Math.round(finalCF * (1 + longTermRate) / (discountRate - longTermRate)) ;
 };
 
-
+const Forcast = (rate, value, time) => {
+    let results = [];
+    for(let period = 0; period<=time ;period++) {
+        results.push(FV(rate, value, period));
+    }
+    return results;
+};
 
 // seekZero seeks the zero point of the function fn(x), accurate to within x \pm 0.01. fn(x) must be decreasing with x.
 const seekZero = (fn) => {
@@ -60,9 +65,8 @@ const IRR = (cfs) => {
     }
     return npv;
   }
-  return Math.round(seekZero(npv) * 100) / 100;
+  return Utils.round(seekZero(npv), 2);
 };
-
 
 // Compound Annual Growth Rate (CAGR)
 const CAGR = (beginningValue, endingValue, numOfPeriods) => {
@@ -71,56 +75,164 @@ const CAGR = (beginningValue, endingValue, numOfPeriods) => {
 };
 
 
-const evaluateDCF = (fundamentals, timeFrame, discountRate, riskFreeRate, estimatedGrowthRate) => {
+const growthRates = (list) => {
+    let rates = [];
+    const last = list.length - 1;
+    for(let period = 1; period < list.length; period++) {
+        for (let time = 0; time < last; time=time+period) {
+            const endIndex = ((time+period) > last ) ? last : time+period;
+            const begin = list[time];
+            const end = list[endIndex];
+            const periods = endIndex - time;
+            const growth = CAGR(begin, end, period);
+            rates.push(growth);
+        }
+    }
+    return rates;
+};
+
+const evaluteCurrentCashFlow = (fundamentals) => {
     const list = fundamentals.list;
     const currentData = Utils.getLastObject(list);
     const prevData = list[list.length - 2];
-    const fcf = Utils.reduce(list, 'FCF', (val) => val);
-    const pastGrowthRate = Finance.CAGR(fcf[0], currentData.FCF, fcf.length);
     const currentWorkingCapital = currentData.ASSETSC - currentData.LIABILITIESC;
     const previousWorkingCapital = prevData.ASSETSC - prevData.LIABILITIESC;
     const currentValue = currentWorkingCapital
                 - previousWorkingCapital
                 + Math.abs(currentData.CAPEX)
                 + currentData.NETINC;
+    return currentValue;
+}
 
-    const expectedGrowthRate = (estimatedGrowthRate) ? estimatedGrowthRate : pastGrowthRate;
+
+const forcastedCashFromRevenue = (fundamentals, timeFrame, estimatedGrowthRate) => {
+    const list = fundamentals.list;
+    const revenueOverTime = Utils.reduce(list, 'REVENUE', (val) => val);
+    const fcfOverTime = Utils.reduce(list, 'FCF', (val) => val);
+    const ratios = Utils.combinedOperation(fcfOverTime, revenueOverTime, (a,b) => Utils.divide(a,b));
+    const averageRatio = Utils.average(ratios);
+
+
+    const revenueGrowthRates = Finance.growthRates(revenueOverTime);
+    const revenueGrowth = Utils.average(revenueGrowthRates);
+    const growthRate = (estimatedGrowthRate) ? estimatedGrowthRate : revenueGrowth;
+
+    const forcastedRevenue = Forcast(growthRate, Utils.getLastObject(revenueOverTime), timeFrame);
+    const forcastedFCF = forcastedRevenue.map(x => x * averageRatio);
+    console.log('forcastedCashFromRevenue', {
+        revenueGrowthRates,
+        revenueGrowth,
+        growthRate,
+        ratios,
+        averageRatio,
+        forcastedRevenue,
+        forcastedFCF
+    });
+    return forcastedFCF;
+};
+
+const forcastedCashFromDividend = (fundamentals, timeFrame, estimatedGrowthRate) => {
+    const list = fundamentals.list;
+    const dividendPerShareOverTime = Utils.reduce(list, 'DPS', (val) => val);
+    const sharesOverTime = Utils.reduce(list, 'SHARESWA', (val) => val);
+    const dividendOverTime = Utils.combinedOperation(dividendPerShareOverTime, sharesOverTime, (a,b) => a * b);
+
+    const fcfOverTime = Utils.reduce(list, 'FCF', (val) => val);
+    const ratios = Utils.combinedOperation(fcfOverTime, dividendOverTime, (a,b) => Utils.divide(a,b));
+    const averageRatio = Utils.average(ratios);
+
+
+    const dividendGrowthRates = Finance.growthRates(dividendOverTime);
+    const dividendGrowth = Utils.average(dividendGrowthRates);
+    const growthRate = (estimatedGrowthRate) ? estimatedGrowthRate : dividendGrowth;
+
+    const forcastedDividend = Forcast(growthRate, Utils.getLastObject(dividendOverTime), timeFrame);
+    const forcastedFCF = forcastedDividend.map(x => x * averageRatio);
+    console.log('forcastedCashFromDividend', {
+        estimatedGrowthRate,
+        dividendGrowthRates,
+        dividendGrowth,
+        growthRate,
+        ratios,
+        averageRatio,
+        forcastedDividend,
+        forcastedFCF
+    });
+    return forcastedFCF;
+};
+
+const evaluateFutureCashFlow = (profile, fundamentals, estimatedGrowthRate, timeFrame) => {
+    const list = fundamentals.list;
+    const sector = profile.sector;
+    // const sector = 'Financial';
+
+    const currentValue = evaluteCurrentCashFlow(fundamentals);
+
+    const futureCashFlow = (sector !== 'Financial') ?
+                            forcastedCashFromRevenue(fundamentals, timeFrame, estimatedGrowthRate)
+                            : forcastedCashFromDividend(fundamentals, timeFrame, estimatedGrowthRate);
+    futureCashFlow[0] = Number.isNaN(currentValue) ? futureCashFlow[0] : currentValue;
+    return futureCashFlow;
+}
+
+const getPresentValue = (discountRate, futureCashFlow, timeFrame) => {
+    let values = []
+    for (let year = 1; year <= timeFrame; year++) {
+        const futureValue = futureCashFlow[year];
+        const presentValue = PV(discountRate, futureValue, year);
+        values.push(presentValue);
+    }
+    const total = values.reduce((sum, value) => sum + value, 1);
+    return {
+        total,
+        values
+    };
+}
+
+const getFairValue = (fundamentals, presentValues, presentTerminalValue) => {
+    const list = fundamentals.list;
+    const currentData = Utils.getLastObject(list);
     const sharesOutstanding = currentData.SHARESWA;
-    const obligations = currentData.LIABILITIESNC;
+    const obligations = currentData.LIABILITIESNC || 0;
     const cash = Math.abs(currentData.NCFF)
                 + Math.abs(currentData.NCFI)
                 + Math.abs(currentData.NCFO);
 
-
-    let totalPresentValue = 0;
-    for (let year = 1; year <= timeFrame; year++) {
-        const futureValue = FV(expectedGrowthRate, currentValue, year);
-        const presentValue = PV(discountRate, futureValue, year);
-        totalPresentValue = totalPresentValue + presentValue;
-    }
-
-    const projectedFutureValue = FV(expectedGrowthRate, currentValue, 5);
-    const terminalValue = TV(riskFreeRate, discountRate, projectedFutureValue);
-    const presentTerminalValue = PV(discountRate, terminalValue, 5);
-    const equityValue = totalPresentValue
+    const equityValue = presentValues.total
                         + presentTerminalValue
                         - obligations;
-    const fairValue = Math.round(equityValue / sharesOutstanding * 100) / 100;
-    console.log(`DCF`, {
-        fcf,
-        expectedGrowthRate,
-        currentValue,
-        projectedFutureValue,
-        totalPresentValue,
+    const fairValue = Utils.round(equityValue / sharesOutstanding, 2);
+    console.log('getFairValue', {
+        fairValue,
+        cash,
+        obligations,
+        equityValue
+    });
+    return fairValue;
+}
+
+const evaluateDCF = (profile, fundamentals, timeFrame, discountRate, riskFreeRate, estimatedGrowthRate) => {
+
+    const futureCashFlow = evaluateFutureCashFlow(profile, fundamentals, estimatedGrowthRate, timeFrame);
+    const presentValues = getPresentValue(discountRate, futureCashFlow, timeFrame);
+
+    const terminalValue = TV(riskFreeRate, discountRate, futureCashFlow[timeFrame]);
+    const presentTerminalValue = PV(discountRate, terminalValue, timeFrame);
+
+    const fairValue = getFairValue(fundamentals, presentValues, presentTerminalValue);
+
+    console.log('DCF', {
+        discountRate,
+        presentValues,
+        futureCashFlow,
         terminalValue,
         presentTerminalValue,
-        equityValue,
-        obligations,
-        fairValue,
-        cash
+        fairValue
     });
     return fairValue
 };
+
+
 
 // Instantiate a Finance class
 const Finance =  {
@@ -129,7 +241,9 @@ const Finance =  {
     FV,
     PV,
     TV,
-    evaluateDCF
+    evaluateDCF,
+    growthRates,
+    Forcast
 };
 
 export default Finance;

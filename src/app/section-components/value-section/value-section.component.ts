@@ -26,14 +26,18 @@ export class ValueSectionComponent implements OnChanges {
     }
 
     evaluateDCF() {
-        const timeFrame = 5;
-        const risk = 1.8;
-        const discountRate = 8.5;
+        const sector = this.profile.secto;
+        const growthOfMarket = 8.5;
         const riskFreeRate = 2.5;
 
-        const underValued  = Finance.evaluateDCF(this.fundamentals, timeFrame, discountRate + risk, riskFreeRate, '');
-        const fairValue  = Finance.evaluateDCF(this.fundamentals, timeFrame, discountRate, riskFreeRate, '');
-        const overValued  = Finance.evaluateDCF(this.fundamentals, timeFrame, discountRate - risk, riskFreeRate, '');
+        const timeFrame = 5;
+        const risk = 1.8;
+        const discountRate = (sector === 'Financial') ? growthOfMarket + riskFreeRate : growthOfMarket;
+        const growthRate = (sector === 'Financial') ? riskFreeRate : '';
+
+        const underValued  = Finance.evaluateDCF(this.profile, this.fundamentals, timeFrame, discountRate + risk, riskFreeRate, growthRate);
+        const fairValue  = Finance.evaluateDCF(this.profile, this.fundamentals, timeFrame, discountRate, riskFreeRate, growthRate);
+        const overValued  = Finance.evaluateDCF(this.profile, this.fundamentals, timeFrame, discountRate - risk, riskFreeRate, growthRate);
         const result = {
             underValued, fairValue, overValued
         };
