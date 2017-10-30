@@ -15,6 +15,7 @@ export class IntroSectionComponent implements OnChanges {
     @Input() profile:any;
     @ViewChild('polarArea') myChart: ElementRef;
     currentData: any;
+    charts: any;
     title: string;
     score: number;
     companyName: string;
@@ -23,12 +24,20 @@ export class IntroSectionComponent implements OnChanges {
         this.score = .3;
         this.companyName = 'V.F Corporation';
         this.currentData = {};
+        this.charts = [];
+    }
+
+    destroy() {
+        this.charts.forEach(chart => {
+            chart.destroy();
+        });
     }
 
     ngOnChanges() {
         console.log('IntroSectionComponent-fundamentals',this.fundamentals);
         const list = this.fundamentals.list || [];
         if (list.length > 0) {
+            this.destroy();
             this.currentData = Utils.getLastObject(list);
             this.buildChart();
         }
@@ -87,6 +96,7 @@ export class IntroSectionComponent implements OnChanges {
             data: data,
             options: options
         });
+        this.charts.push(chart);
     }
 
 }

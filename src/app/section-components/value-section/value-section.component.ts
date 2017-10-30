@@ -17,12 +17,20 @@ export class ValueSectionComponent implements OnChanges {
     @Input() profile:any;
     @ViewChild('myChart') myChart: ElementRef;
     currentData: any;
+    charts: any;
     title: string;
     score: number;
     constructor() {
         this.title = 'Value';
         this.score = .6;
         this.currentData = {};
+        this.charts = [];
+    }
+
+    destroy() {
+        this.charts.forEach(chart => {
+            chart.destroy();
+        });
     }
 
     evaluateDCF() {
@@ -99,6 +107,7 @@ export class ValueSectionComponent implements OnChanges {
             data: data,
             options: options
         });
+        this.charts.push(chart);
     }
 
     buildMixedCart() {
@@ -273,15 +282,16 @@ export class ValueSectionComponent implements OnChanges {
             data,
             options
         });
+        this.charts.push(chart);
     }
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
         if (list.length > 0) {
+            this.destroy();
             this.currentData = Utils.getLastObject(list);
             // this.buildChart();
             this.buildMixedCart();
-            this.evaluateDCF();
         }
     }
 

@@ -14,17 +14,27 @@ export class DividendSectionComponent implements OnChanges {
     @Input() fundamentals:any;
     @Input() profile:any;
     currentData: any;
+    charts: any;
     title: string;
     score: number;
     constructor() {
         this.title = 'Dividend';
         this.score = .2;
         this.currentData = {};
+        this.charts = [];
+    }
+
+    destroy() {
+        this.charts.forEach(chart => {
+            chart.destroy();
+        });
     }
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
+        let chart;
         if (list.length > 0) {
+            this.destroy();
             this.currentData = Utils.getLastObject(list);
             this.buildPayoutChart();
         }
@@ -79,6 +89,7 @@ export class DividendSectionComponent implements OnChanges {
             data: data,
             options: options
         });
+        this.charts.push(chart);
     }
 
 }

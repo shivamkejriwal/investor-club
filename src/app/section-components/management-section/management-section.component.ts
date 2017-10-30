@@ -13,6 +13,7 @@ import { Utils } from '../utils';
 export class ManagementSectionComponent implements OnChanges {
     @Input() fundamentals:any;
     @Input() profile:any;
+    charts:any;
     currentData: any;
     title: string;
     score: number;
@@ -20,6 +21,13 @@ export class ManagementSectionComponent implements OnChanges {
         this.title = 'Management';
         this.score = .3;
         this.currentData = {};
+        this.charts = [];
+    }
+
+    destroy() {
+        this.charts.forEach(chart => {
+            chart.destroy();
+        });
     }
 
     getAllocationData(data) {
@@ -119,6 +127,7 @@ export class ManagementSectionComponent implements OnChanges {
             data,
             options
         });
+        this.charts.push(chart);
     }
 
     buildGrowthAllocationTimeline() {
@@ -203,11 +212,13 @@ export class ManagementSectionComponent implements OnChanges {
             data,
             options
         });
+        this.charts.push(chart);
     }
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
         if (list.length > 0) {
+            this.destroy();
             this.currentData = Utils.getLastObject(list);
             this.buildGrowthAllocationChart();
             this.buildGrowthAllocationTimeline();

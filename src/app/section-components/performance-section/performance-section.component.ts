@@ -52,6 +52,7 @@ const generateGaugeChart = (key, value, divID) => {
         data: data,
         options: options
     });
+    return chart;
 };
 
 @Component({
@@ -66,17 +67,26 @@ export class PerformanceSectionComponent implements OnChanges {
     @Input() fundamentals:any;
     @Input() profile:any;
     currentData: any;
+    charts: any;
     title: string;
     score: number;
     constructor() {
         this.title = 'Performance';
         this.score = .6;
         this.currentData = {};
+        this.charts = [];
+    }
+
+    destroy() {
+        this.charts.forEach(chart => {
+            chart.destroy();
+        });
     }
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
         if (list.length > 0) {
+            this.destroy();
             this.currentData = Utils.getLastObject(list);
             this.buildPerformanceChart();
             this.buildEarningsChart();
@@ -92,7 +102,8 @@ export class PerformanceSectionComponent implements OnChanges {
         // generateGaugeChart('ROE', roe, "roeChart");
         // generateGaugeChart('ROA', roa, "roaChart");
         // generateGaugeChart('ROCE', roce, "roceChart");
-        generateGaugeChart('ROIC', roic, "roicChart");
+        let roicChart = generateGaugeChart('ROIC', roic, "roicChart");
+        this.charts.push(roicChart);
     }
 
     buildEarningsChart() {
@@ -159,6 +170,7 @@ export class PerformanceSectionComponent implements OnChanges {
             data,
             options
         });
+        this.charts.push(chart);
     }
 }
 

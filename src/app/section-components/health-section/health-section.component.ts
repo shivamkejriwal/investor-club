@@ -16,17 +16,26 @@ export class HealthSectionComponent implements OnChanges {
     @Input() fundamentals:any;
     @Input() profile:any;
     currentData: any;
+    charts: any;
     title: string;
     score: number;
     constructor() {
         this.title = 'Health';
         this.score = .9;
         this.currentData = {};
+        this.charts = [];
+    }
+
+    destroy() {
+        this.charts.forEach(chart => {
+            chart.destroy();
+        });
     }
 
     ngOnChanges() {
         const list = this.fundamentals.list || [];
         if (list.length > 0) {
+            this.destroy();
             this.currentData = Utils.getLastObject(list);
             this.buildChartA();
             this.buildChartB();
@@ -102,6 +111,7 @@ export class HealthSectionComponent implements OnChanges {
             data,
             options
         });
+        this.charts.push(chart);
     }
 
     buildChartB() {
@@ -168,6 +178,7 @@ export class HealthSectionComponent implements OnChanges {
             data,
             options
         });
+        this.charts.push(chart);
     }
 }
 
