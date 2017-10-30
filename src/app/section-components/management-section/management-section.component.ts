@@ -54,7 +54,7 @@ export class ManagementSectionComponent implements OnChanges {
         const allocation = this.getAllocationData(this.currentData);
         console.log('allocation',allocation);
         var ctx = document.getElementById('growthAllocationChart');
-        const labels = ['Research', 'Capital Expenditure', 'Acquisitions'];
+        const labels = ['Research', 'Production', 'Acquisitions'];
         let data = {
             labels: ['Current'],
             datasets: [
@@ -67,7 +67,7 @@ export class ManagementSectionComponent implements OnChanges {
                         backgroundColor: "rgba(249, 201, 117, 1)"
                     },
                     {
-                        label: 'Capital Expenditure',
+                        label: 'Production',
                         data: [allocation.capex],
                         fillOpacity: .3,
                         borderWidth: 1,
@@ -80,7 +80,7 @@ export class ManagementSectionComponent implements OnChanges {
                         fillOpacity: .3,
                         borderWidth: 1,
                         borderColor: 'white',
-                        backgroundColor: "rgba(216, 69, 74, 1)"
+                        backgroundColor: "rgba(132, 152, 191, 1)"
                     }
 
             ],
@@ -157,14 +157,14 @@ export class ManagementSectionComponent implements OnChanges {
                     backgroundColor: 'rgba(249, 201, 117, 1)'
                 },
                 {
-                    label: 'Capital Expenditure',
+                    label: 'Production',
                     data: capex,
                     backgroundColor: 'rgba(126, 158, 123, 1)'
                 },
                 {
                     label: 'Acquisitions',
                     data: acquisitions,
-                    backgroundColor: 'rgba(216, 69, 74, 1)'
+                    backgroundColor: 'rgba(132, 152, 191, 1)'
                 }
 
             ]

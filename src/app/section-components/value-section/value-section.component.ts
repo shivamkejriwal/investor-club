@@ -113,12 +113,13 @@ export class ValueSectionComponent implements OnChanges {
     buildMixedCart() {
         var ctx = document.getElementById("myChart");
         const values = this.evaluateDCF();
-        const max = values.overValued + 20;
+
         const fairValuedMax = values.overValued;
         const underValuedMax = values.underValued;
         const fairValue = values.fairValue;
         const rand = (Math.random() - 0.5) * 100;
         const currentValue = Math.round(fairValue + rand);
+        const max = Math.max(values.overValued, currentValue) * 1.2;
         let data = {
             labels: [
                 "Fair Value",
