@@ -25,7 +25,9 @@
     font-size: 20px;
     line-height: 37px;
 }
-.section-guide {}
+.section-guide {
+    margin: 10px 0;
+}
 .section-content {
     display: block;
     overflow:auto;
